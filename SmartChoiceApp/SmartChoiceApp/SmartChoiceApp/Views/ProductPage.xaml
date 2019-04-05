@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Xamd.ImageCarousel.Forms.Plugin.Abstractions;assembly=Xamd.ImageCarousel.Forms.Plugin.Abstractions"
+             xmlns:custom1="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:controls1="clr-namespace:SmartChoiceApp.Controls"
+             xmlns:converters1="clr-namespace:SmartChoiceApp.Converter"
+             x:Class="SmartChoiceApp.Views.ProductPage"
+             Title="Thông tin sản phẩm">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters1:ToDouble x:Key="ToDouble"></converters1:ToDouble>
+            <Style TargetType="Label" x:Key="LeftLabel">
+                <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="RightLabel">
+                <Setter Property="HorizontalOptions" Value="EndAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            </Style>
+            <Style TargetType="controls1:RatingControl">
+                <Setter Property="ImageFullStar" Value="fullStar.png"/>
+                <Setter Property="ImageEmptyStar" Value="emptyStar.png"/>
+                <Setter Property="ImageHalfStar" Value="halfStar.png"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding="15">
+            <ScrollView>
+                <StackLayout>
+                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="200"
+                       Source="{Binding ProductInfo.HinhAnhSanPham}"/>
+                    <Label Text="{Binding ProductInfo.TenGiong}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="Số lượt quét:" HorizontalOptions="EndAndExpand"/>
+                        <Label Text="{Binding ProductInfo.SoLanQuet}" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <controls1:RatingControl Rating="9" HorizontalOptions="EndAndExpand"/>
+                    <Grid RowSpacing="15" ColumnSpacing="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Nhà sản xuất:" Grid.Column="0" Grid.Row="0" Style="{StaticResource LeftLabel}" VerticalOptions="StartAndExpand"/>
+                        <Label Text="Kỹ thuật trồng:" Grid.Column="0" Grid.Row="1" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Thời gian tăng trưởng:" Grid.Column="0" Grid.Row="2" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Nơi trồng:" Grid.Column="0" Grid.Row="3" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Ngày bắt đầu:" Grid.Column="0" Grid.Row="4" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Ngày thu hoạch:" Grid.Column="0" Grid.Row="5" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Hạn sử dụng:" Grid.Column="0" Grid.Row="6" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Phân bón:" Grid.Column="0" Grid.Row="7" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Sâu bệnh:" Grid.Column="0" Grid.Row="8" Style="{StaticResource LeftLabel}"/>
+
+                        <StackLayout  Grid.Column="1" Grid.Row="0">
+                            <Label Text="{Binding ProductInfo.TenNSX}" Style="{StaticResource RightLabel}"/>
+                            <Label Text="Xem thêm" VerticalOptions="CenterAndExpand" 
+                                   HorizontalOptions="EndAndExpand" FontAttributes="Bold">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ManufacturerDetailCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                        <Label Text="{Binding ProductInfo.KyThuatTrong}" Grid.Column="1" Grid.Row="1" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.ThoiGianTangTruong}" Grid.Column="1" Grid.Row="2" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.DiaChiTrong}" Grid.Column="1" Grid.Row="3" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.NgayTrong}" Grid.Column="1" Grid.Row="4" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.NgayThuHoach}" Grid.Column="1" Grid.Row="5" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.HanSuDung}" Grid.Column="1" Grid.Row="6" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.PhanBon}" Grid.Column="1" Grid.Row="7" Style="{StaticResource RightLabel}"/>
+                        <Label Text="Xem chi tiết" Grid.Column="1" Grid.Row="8" VerticalOptions="CenterAndExpand" 
+                                   HorizontalOptions="EndAndExpand" FontAttributes="Bold">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PestilentInsectCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <Label Text="Đánh giá" Style="{StaticResource LeftLabel}" Margin="0,20,0,0"/>
+                    <ListView HasUnevenRows="True" SelectionMode="None" ItemsSource="{Binding Reviews}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Spacing="15">
+                                        <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                                            <custom1:CircleImage Source="{Binding AnhDaiDien}"                                       
+                                             VerticalOptions="CenterAndExpand"
+                                             HorizontalOptions="Start"
+                                             HeightRequest="50" WidthRequest="50">
+                                             </custom1:CircleImage>
+                                             <StackLayout>
+                                                <Label Text="{Binding TenNguoiDung}" Style="{StaticResource LeftLabel}"/>
+                                                <controls1:RatingControl Rating="{Binding Rating, Converter={StaticResource ToDouble}}" HorizontalOptions="EndAndExpand"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Label Margin="15,0,0,0" Text="{Binding NoiDung}"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label Style="{StaticResource LeftLabel}" Text="Thêm đánh giá của bạn">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ReviewCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

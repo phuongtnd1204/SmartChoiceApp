@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+             xmlns:controls="clr-namespace:SmartChoiceApp.Controls"
+             x:Class="SmartChoiceApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style TargetType="NavigationPage">
+                <Setter Property="NavigationPage.BarBackgroundColor" Value="#24bd64"/>
+                <Setter Property="BarTextColor" Value="White"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#24bd64"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="BorderRadius" Value="5"/>
+            </Style>
+            <Style TargetType="controls:FloatingEntry">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Background" Value="borderEntry"/>
+            </Style>
+            <Style TargetType="controls:CustomEditor">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Background" Value="borderEntry"/>
+            </Style>
+        </ResourceDictionary>
+
+    </Application.Resources>
+</prism:PrismApplication>

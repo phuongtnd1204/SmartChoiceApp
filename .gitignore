@@ -3,3 +3,9 @@
 ################################################################################
 
 /SmartChoiceApp/SmartChoiceApp/SmartChoiceApp/bin/Debug/netstandard2.0
+/SmartChoiceApp/SmartChoiceApp/SmartChoiceApp/obj
+/SmartChoiceApp/SmartChoiceApp/SmartChoiceApp.Android/bin/Debug
+/SmartChoiceApp/SmartChoiceApp/SmartChoiceApp.Android/obj
+/SmartChoiceApp/SmartChoiceApp/SmartChoiceApp.Android/Resources/Resource.designer.cs
+*.user
+/SmartChoiceApp/.vs/SmartChoiceApp/v15
