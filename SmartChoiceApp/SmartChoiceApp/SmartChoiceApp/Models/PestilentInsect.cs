@@ -9,7 +9,8 @@ namespace SmartChoiceApp.Models
         public string ProductDetailID { get; set; }
         public string PestilentInsectID { get; set; }
         public string ProductID { get; set; }
-        public List<string> Images { get; set; }
-        public List<string> Solution { get; set; }
+        public string SauBenh { get; set; }
+        public string HinhAnhSauBenh { get; set; }
+        public string CachXuLy { get; set; }
     }
 }

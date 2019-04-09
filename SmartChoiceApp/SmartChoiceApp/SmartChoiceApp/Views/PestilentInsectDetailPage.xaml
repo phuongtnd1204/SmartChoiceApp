@@ -5,16 +5,24 @@
              Title="Sâu bệnh">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style TargetType="Label">
+            <Style TargetType="Label" x:Key="TitleLabel">
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="20" Spacing="20">
-            <Image Source="ic_launcher"/>
+        <StackLayout Padding="10" Spacing="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -24,11 +32,11 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Text="Sâu bệnh" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Sâu bệnh" Grid.Column="0" Grid.Row="0" Style="{StaticResource TitleLabel}"/>
 
-                <Label Text="Cách xử lý" Grid.Column="1" Grid.Row="0"/>
+                <Label Text="Cách xử lý" Grid.Column="1" Grid.Row="0" Style="{StaticResource TitleLabel}"/>
             </Grid>
-            <ListView HasUnevenRows="True" SelectionMode="None">
+            <ListView HasUnevenRows="True" SelectionMode="None" ItemsSource="{Binding Insects}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -38,12 +46,14 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="50"/>
                                 </Grid.RowDefinitions>
 
-                                <Label Text="{Binding .}" Grid.Column="0" Grid.Row="0"/>
+                                <Image Source="avatar" Grid.Column="0" Grid.Row="0"/>
+                                <Label Text="{Binding SauBenh}" Grid.Column="0" Grid.Row="1"/>
 
-                                <Label Text="{Binding .}" Grid.Column="1" Grid.Row="0"/>
+                                <Label Text="{Binding CachXuLy}"  Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

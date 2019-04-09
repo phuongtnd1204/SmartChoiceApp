@@ -1,5 +1,6 @@
 ﻿using Prism;
 using Prism.Ioc;
+using Prism.Navigation;
 using SmartChoiceApp.ViewModels;
 using SmartChoiceApp.Views;
 using Xamarin.Forms;
@@ -23,7 +24,11 @@ namespace SmartChoiceApp
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            NavigationParameters parameter = new NavigationParameters();
+            parameter.Add("ID", 1);
+            await NavigationService.NavigateAsync("NavigationPage/ProductPage", parameter);
+
+            //await NavigationService.NavigateAsync("NavigationPage/LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

@@ -116,7 +116,9 @@ namespace SmartChoiceApp.ViewModels
 
         private async void PestilentInsectAction()
         {
-            await navigation.NavigateAsync("PestilentInsectDetailPage");
+            NavigationParameters parameter = new NavigationParameters();
+            parameter.Add("ID", 2);
+            await navigation.NavigateAsync("PestilentInsectDetailPage", parameter);
         }
 
         private async void ReviewAction()

@@ -62,9 +62,13 @@ namespace SmartChoiceApp.Database
             return manufacturer;
         }
 
-        public void GetPestilentInsect()
+        public async Task<List<PestilentInsect>> GetPestilentInsect(int ID)
         {
-
+            URL = UrlHome + "checkinformation/pestilentinsect/" + ID.ToString();
+            var httpResponse = await Client.GetAsync(URL);
+            var response = await httpResponse.Content.ReadAsStringAsync();
+            var manufacturer = JObject.Parse(response)["Result"].ToObject<List<PestilentInsect>>();
+            return manufacturer;
         }
 
         public void GetReviewList()
@@ -72,9 +76,16 @@ namespace SmartChoiceApp.Database
 
         }
 
-        public void AddReview()
+        public async Task<bool> AddReview()
         {
-
+            URL = UrlHome + "producers/";
+            var httpResponse = await Client.GetAsync(URL);
+            var response = await httpResponse.Content.ReadAsStringAsync();
+            var manufacturer = JObject.Parse(response)["Result"].ToObject<Manufacturer>();
+            if (manufacturer != null)
+                return true;
+            else
+                return false;
         }
         #endregion
     }

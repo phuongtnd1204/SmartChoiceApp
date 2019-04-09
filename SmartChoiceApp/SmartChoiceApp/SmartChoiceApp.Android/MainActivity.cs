@@ -3,7 +3,6 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
-using Xamd.ImageCarousel.Forms.Plugin.Droid;
 
 namespace SmartChoiceApp.Droid
 {
@@ -17,7 +16,6 @@ namespace SmartChoiceApp.Droid
 
             base.OnCreate(bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
-            ImageCarouselRenderer.Init();
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#24bd64"));
             global::Xamarin.Forms.Forms.Init(this, bundle);
