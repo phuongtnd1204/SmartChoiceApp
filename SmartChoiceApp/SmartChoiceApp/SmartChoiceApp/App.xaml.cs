@@ -1,6 +1,5 @@
 ﻿using Prism;
 using Prism.Ioc;
-using Prism.Navigation;
 using SmartChoiceApp.ViewModels;
 using SmartChoiceApp.Views;
 using Xamarin.Forms;
@@ -16,6 +15,7 @@ namespace SmartChoiceApp
          * This imposes a limitation in which the App class must have a default constructor. 
          * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
          */
+        public static User mainUser = null;
         public App() : this(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
@@ -24,11 +24,11 @@ namespace SmartChoiceApp
         {
             InitializeComponent();
 
-            NavigationParameters parameter = new NavigationParameters();
-            parameter.Add("ID", 1);
-            await NavigationService.NavigateAsync("NavigationPage/ProductPage", parameter);
-
-            //await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            //NavigationParameters parameter = new NavigationParameters();
+            //parameter.Add("ID", 1);
+            //await NavigationService.NavigateAsync("NavigationPage/ProductPage", parameter);
+            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            mainUser = new User();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

@@ -10,6 +10,7 @@ namespace SmartChoiceApp.Controls
 		public FloatingEntry ()
 		{
 			InitializeComponent ();
+            
 		}
         #region Placeholder
 

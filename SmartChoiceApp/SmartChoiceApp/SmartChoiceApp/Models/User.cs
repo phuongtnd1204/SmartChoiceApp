@@ -2,10 +2,12 @@
 {
     public class User
     { 
-        public string UserID { get; set; }
-        public string UserName { get; set; }
-        public string LoginName { get; set; }
-        public string Password { get; set; }
+        public string MaNguoiDung { get; set; }
+        public string TenNguoiDung { get; set; }
+        public string TenDangNhap { get; set; }
+        public string MatKhau { get; set; }
+        public int SDT { get; set; }
+        public string AnhDaiDien { get; set; }
 
     }
 }
