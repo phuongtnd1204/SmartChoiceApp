@@ -18,6 +18,7 @@ namespace SmartChoiceApp.Controls
 
         #endregion
 
+
         #region Padding
 
         public static readonly BindableProperty PaddingProperty =

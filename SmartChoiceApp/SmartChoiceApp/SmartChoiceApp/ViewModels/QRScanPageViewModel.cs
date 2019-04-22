@@ -11,32 +11,36 @@ namespace SmartChoiceApp.ViewModels
     {
         #region Properties
         public ICommand ScanCommand { get; set; }
-        private string _result;
 
-        public string Result
+        private ZXing.Result _result;
+        public ZXing.Result Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
         }
+
         INavigationService _navigationService;
         #endregion
         public QRScanPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            _navigationService = navigationService;
-            Result = "aaaaa";
+            _navigationService = navigationService;        
             ScanCommand = new Command(Scan);
         }
         private async void Scan()
         {
-                var scanner = DependencyService.Get<IQrScanningService>();
-                var result = await scanner.ScanAsync();
-                if (result != null)
-                {
-                    Result = result;
-                    NavigationParameters param = new NavigationParameters();
-                    param.Add("ID", 1);
-                    await _navigationService.NavigateAsync("ProductPage", param);
-            }
+            //    var scanner = DependencyService.Get<IQrScanningService>();
+            //    var result = await scanner.ScanAsync();
+            //    if (result != null)
+            //    {
+            //        Result. = result;
+            //        NavigationParameters param = new NavigationParameters();
+            //        param.Add("ID", 1);
+            //        await _navigationService.NavigateAsync("ProductPage", param);
+            //}
+            var x = _result.Text;
+            NavigationParameters param = new NavigationParameters();
+            param.Add("ID", 1);
+            await _navigationService.NavigateAsync("ProductPage", param);
 
         }
     }

@@ -21,6 +21,10 @@
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="Background" Value="borderEntry"/>
             </Style>
+            <Style TargetType="controls:NumericEntry">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Background" Value="borderEntry"/>
+            </Style>
             <Style TargetType="controls:CustomEditor">
                 <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
                 <Setter Property="Background" Value="borderEntry"/>

@@ -22,8 +22,8 @@
     </ContentPage.Resources>
     <StackLayout Padding="30" Spacing="20">
         <Image Source="Logo"/>
-        <controls:FloatingEntry Placeholder="Tên đăng nhập" Title="Tên đăng nhập" Text="{Binding TenDangNhap}" />
-        <controls:FloatingEntry Placeholder="Mật khẩu" IsPassword="True" Title="Mật khẩu" Text="{Binding MatKhau}"/>
+        <controls:FloatingEntry Title="Tên đăng nhập" Text="{Binding TenDangNhap}" />
+        <controls:FloatingEntry IsPassword="True" Title="Mật khẩu" Text="{Binding MatKhau}"/>
         <StackLayout HeightRequest="30">
             <ActivityIndicator IsRunning="{Binding IsWaiting}" IsVisible="{Binding IsWaiting}"/>
         </StackLayout>

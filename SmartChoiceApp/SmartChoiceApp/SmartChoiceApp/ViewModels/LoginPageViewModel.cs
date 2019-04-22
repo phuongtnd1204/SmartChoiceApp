@@ -46,6 +46,11 @@ namespace SmartChoiceApp.ViewModels
         }
         private async void LoginAsync()
         {
+            if(string.IsNullOrEmpty(_tenDangNhap) || string.IsNullOrEmpty(_matKhau))
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Vui lòng điền đầy đủ thông tin!", "OK");
+                return;
+            }
             IsWaiting = true;
             if (await database.Login(_tenDangNhap, _matKhau))
             {

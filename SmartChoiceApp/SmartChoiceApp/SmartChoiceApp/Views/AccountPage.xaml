@@ -36,7 +36,7 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Text="Số điện thoại" Grid.Column="0" Grid.Row="0"/>
-                        <controls:FloatingEntry Text="{Binding UserInfo.SDT}" Grid.Column="1" Grid.Row="0" Title="Số điện thoại" />
+                        <controls:NumericEntry Text="{Binding UserInfo.SDT}" Grid.Column="1" Grid.Row="0" Title="Số điện thoại" />
                         <Label Text="Thay đổi mật khẩu" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="ChangePassword_Click"/>

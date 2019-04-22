@@ -76,38 +76,41 @@ namespace SmartChoiceApp.ViewModels
                 string.IsNullOrEmpty(UserInfo.TenNguoiDung) || string.IsNullOrEmpty(_matKhau2))
             {
                 await dialog.DisplayAlertAsync("Thông báo", "Vui lòng điền đầy đủ thông tin!", "OK");
-            }
-            else
-            {
-                if (_matKhau2 != UserInfo.MatKhau)
-                {
-                    await dialog.DisplayAlertAsync("Thông báo", "Xác nhận mật khẩu không đúng", "OK");
-                }
-                else
-                {
-                    IsWaiting = true;
-                    if(await database.CheckExist(UserInfo.TenDangNhap))
-                    {
-                        IsWaiting = false;
-                        await dialog.DisplayAlertAsync("Thông báo", "Tên đăng nhập đã tồn tại", "OK");
-                    }
-                    else
-                    {
-                        if (await database.SignUp(_userInfo))
-                        {
-                            IsWaiting = false;
-                            await dialog.DisplayAlertAsync("Thông báo", "Đăng ký thành công", "OK");
-                            await navigation.GoBackAsync();
-                        }
-                        else
-                        {
-                            IsWaiting = false;
-                            await dialog.DisplayAlertAsync("Thông báo", "Đăng ký không thành công", "OK");
-                        }
-                    }
-                }
+                return;
             }
 
+            if (_matKhau2 != UserInfo.MatKhau)
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Xác nhận mật khẩu không đúng", "OK");
+                return;
+            }
+
+            if (SDT.Contains("-") || SDT.Contains(","))
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Số điện thoại chứa ký tự không cho phép!", "OK");
+                return;
+            }
+
+            IsWaiting = true;
+             if(await database.CheckExist(UserInfo.TenDangNhap))
+              {
+                        IsWaiting = false;
+                        await dialog.DisplayAlertAsync("Thông báo", "Tên đăng nhập đã tồn tại", "OK");
+                        return; 
+             }
+
+             _userInfo.SDT = Int32.Parse(SDT);
+              if (await database.SignUp(_userInfo))
+              {
+                                IsWaiting = false;
+                                await dialog.DisplayAlertAsync("Thông báo", "Đăng ký thành công", "OK");
+                                await navigation.GoBackAsync();
+              }
+              else
+              {
+                                IsWaiting = false;
+                                await dialog.DisplayAlertAsync("Thông báo", "Đăng ký không thành công", "OK");
+              }
         }
     }
 }

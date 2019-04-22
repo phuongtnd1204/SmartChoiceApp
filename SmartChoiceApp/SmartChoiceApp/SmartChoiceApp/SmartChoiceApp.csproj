@@ -22,6 +22,9 @@
     <EmbeddedResource Update="Controls\FloatingEntry.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Controls\NumericEntry.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\AccountPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

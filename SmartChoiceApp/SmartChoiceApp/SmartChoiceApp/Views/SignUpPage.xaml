@@ -20,15 +20,15 @@
         <ScrollView>
             <StackLayout Padding="20" Spacing="20">
                 <Image Source="Logo"/>
-                <controls:FloatingEntry Placeholder="Tên người dùng" Title="Tên người dùng" 
+                <controls:FloatingEntry Title="Tên người dùng"
                                         Text="{Binding UserInfo.TenNguoiDung, Mode=OneWayToSource}"/>
-                <controls:FloatingEntry Placeholder="Số điện thoại" Title="Số điện thoại"
-                                        Text="{Binding UserInfo.SDT, Mode=OneWayToSource}" />
-                <controls:FloatingEntry Placeholder="Tên đăng nhập" Title="Tên đăng nhập" 
+                <controls:NumericEntry Title="Số điện thoại"                        
+                                        Text="{Binding SDT, Mode=OneWayToSource}" />
+                <controls:FloatingEntry Title="Tên đăng nhập" 
                                         Text="{Binding UserInfo.TenDangNhap, Mode=OneWayToSource}"/>
-                <controls:FloatingEntry Placeholder="Mật khẩu" IsPassword="True" Title="Mật khẩu"
+                <controls:FloatingEntry IsPassword="True" Title="Mật khẩu"
                                         Text="{Binding UserInfo.MatKhau, Mode=OneWayToSource}"/>
-                <controls:FloatingEntry Placeholder="Nhập lại mật khẩu" IsPassword="True" Title="Nhập lại mật khẩu" 
+                <controls:FloatingEntry IsPassword="True" Title="Nhập lại mật khẩu" 
                                         Text="{Binding MatKhau2, Mode=OneWayToSource}"/>
                 <StackLayout HeightRequest="30">
                     <ActivityIndicator IsRunning="{Binding IsWaiting}" IsVisible="{Binding IsWaiting}"/>
