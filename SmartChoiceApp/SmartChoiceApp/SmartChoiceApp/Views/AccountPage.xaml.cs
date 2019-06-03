@@ -15,11 +15,15 @@ namespace SmartChoiceApp.Views
             if(isOpen)
             {
                 PassWordLayout.IsVisible = false;
+                passWordButton.IsVisible = false;
+                saveButton.IsVisible = true;
                 isOpen = false;
             }
             else
             {
                 PassWordLayout.IsVisible = true;
+                passWordButton.IsVisible = true;
+                saveButton.IsVisible = false;
                 isOpen = true;
             }
         }

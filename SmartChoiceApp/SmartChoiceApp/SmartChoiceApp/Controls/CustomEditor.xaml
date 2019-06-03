@@ -18,7 +18,6 @@
                   BackgroundColor="White"
                   Padding="5,0"
                   Margin="10,0"
-                  IsVisible="False"
                   x:Name="MainTitle">
                 <Label Text="{Binding Title, Source={x:Reference this}}"
                        FontSize="10"
@@ -31,10 +30,7 @@
                                    Padding="7,30,7,0"
                                     FontSize="16"
                                     Margin="7,7,7,0"
-                                    x:Name="MainEntry"
-                                    Focused="MainEntry_Focused"
-                                    Unfocused="MainEntry_Unfocused"
-                                    TextChanged="MainEntry_TextChanged"/>
+                                    x:Name="MainEntry"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

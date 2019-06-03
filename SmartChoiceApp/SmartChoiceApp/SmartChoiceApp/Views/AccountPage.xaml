@@ -44,14 +44,15 @@
                         </Label>
                     </Grid>
                     <StackLayout x:Name="PassWordLayout" IsVisible="False">
-                        <controls:FloatingEntry Placeholder="Mật khẩu cũ" Title="Mật khẩu cũ"/>
-                        <controls:FloatingEntry Placeholder="Mật khẩu mới" Title="Mật khẩu mới"/>
-                        <controls:FloatingEntry Placeholder="Nhập lại mật khẩu mới" Title="Nhập lại mật khẩu mới"/>
+                        <controls:FloatingEntry  Title="Mật khẩu cũ" Text="{Binding OldPass}"/>
+                        <controls:FloatingEntry  Title="Mật khẩu mới" Text="{Binding NewPass}"/>
+                        <controls:FloatingEntry Title="Nhập lại mật khẩu mới" Text="{Binding ConfirmPass}"/>
                     </StackLayout>
                     <StackLayout HeightRequest="30">
                         <ActivityIndicator IsRunning="{Binding IsWaiting}" IsVisible="{Binding IsWaiting}"/>
                     </StackLayout>
-                    <Button Text="Lưu" Command="{Binding SaveCommand}"/>
+                    <Button x:Name="passWordButton" Text="Lưu mật khẩu" Command="{Binding SavePassWordCommand}" IsVisible="False"/>
+                    <Button x:Name="saveButton" Text="Lưu thông tin" Command="{Binding SaveCommand}"/>
                     <Button Text="Đăng xuất" Command="{Binding LogoutCommand}"/>
                 </StackLayout>
             </ScrollView>

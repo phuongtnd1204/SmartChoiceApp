@@ -12,8 +12,8 @@ namespace SmartChoiceApp.ViewModels
         #region Properties
         public ICommand ScanCommand { get; set; }
 
-        private ZXing.Result _result;
-        public ZXing.Result Result
+        private string _result;
+        public string Result
         {
             get => _result;
             set => SetProperty(ref _result, value);
@@ -28,19 +28,19 @@ namespace SmartChoiceApp.ViewModels
         }
         private async void Scan()
         {
-            //    var scanner = DependencyService.Get<IQrScanningService>();
-            //    var result = await scanner.ScanAsync();
-            //    if (result != null)
-            //    {
-            //        Result. = result;
-            //        NavigationParameters param = new NavigationParameters();
-            //        param.Add("ID", 1);
-            //        await _navigationService.NavigateAsync("ProductPage", param);
-            //}
-            var x = _result.Text;
-            NavigationParameters param = new NavigationParameters();
-            param.Add("ID", 1);
-            await _navigationService.NavigateAsync("ProductPage", param);
+            var scanner = DependencyService.Get<IQrScanningService>();
+            var result = await scanner.ScanAsync();
+            if (result != null)
+            {
+                Result = result;
+                NavigationParameters param = new NavigationParameters();
+                param.Add("ID", Result);
+                await _navigationService.NavigateAsync("ProductPage", param);
+            }
+            //var x = _result.Text;
+            //NavigationParameters param = new NavigationParameters();
+            //param.Add("ID", 1);
+            //await _navigationService.NavigateAsync("ProductPage", param);
 
         }
     }

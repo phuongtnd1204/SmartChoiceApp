@@ -9,9 +9,7 @@
              Title="Quét QR">
 
     <StackLayout>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <forms:ZXingScannerView IsScanning="True" IsAnalyzing="True" Result="{Binding Result, Mode=TwoWay}" ScanResultCommand="{Binding ScanCommand}"></forms:ZXingScannerView>
-            <forms:ZXingDefaultOverlay Opacity="0.9"></forms:ZXingDefaultOverlay>
-        </Grid>
+        <Button Command="{Binding ScanCommand}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                Text="Open Scan"/>
     </StackLayout>
 </ContentPage>

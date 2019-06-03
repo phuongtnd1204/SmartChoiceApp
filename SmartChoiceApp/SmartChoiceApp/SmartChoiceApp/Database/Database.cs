@@ -47,8 +47,15 @@ namespace SmartChoiceApp.Database
             URL = UrlHome + "checkinformation/" + ID.ToString();
             var httpResponse = await Client.GetAsync(URL);
             var response = await httpResponse.Content.ReadAsStringAsync();
-            var product = JObject.Parse(response)["Result"].ToObject<ProductDetail>();
-            return product;
+            if ((int)JObject.Parse(response)["Result"]["messageUpdate"]["affectedRows"] == 1)
+            {
+                return JObject.Parse(response)["Result"].ToObject<ProductDetail>();
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public void GetProductType()
@@ -70,8 +77,14 @@ namespace SmartChoiceApp.Database
             URL = UrlHome + "checkinformation/pestilentinsect/" + ID.ToString();
             var httpResponse = await Client.GetAsync(URL);
             var response = await httpResponse.Content.ReadAsStringAsync();
-            var manufacturer = JObject.Parse(response)["Result"].ToObject<List<PestilentInsect>>();
-            return manufacturer;
+            if (JObject.Parse(response)["Result"].HasValues == true)
+            {
+                return JObject.Parse(response)["Result"].ToObject<List<PestilentInsect>>();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void GetReviewList()
@@ -79,16 +92,37 @@ namespace SmartChoiceApp.Database
 
         }
 
-        public async Task<bool> AddReview()
+        public async Task<bool> AddReview(Review userReview)
         {
-            URL = UrlHome + "producers/";
-            var httpResponse = await Client.GetAsync(URL);
-            var response = await httpResponse.Content.ReadAsStringAsync();
-            var manufacturer = JObject.Parse(response)["Result"].ToObject<Manufacturer>();
-            if (manufacturer != null)
-                return true;
+            URL = UrlHome + "users/postcomment";
+            obj = new
+            {
+                MaNguoiDung = userReview.MaNguoiDung,
+                MaLoaiSanPham = userReview.MaLoaiSanPham,
+                Rating = userReview.Rating.ToString(),
+                NoiDung = userReview.NoiDung
+            };
+
+            var json = JsonConvert.SerializeObject(obj);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var httpResponse = await Client.PostAsync(URL,data);
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var responseString = await httpResponse.Content.ReadAsStringAsync();
+                if (responseString == null || responseString == "{}")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
             else
+            {
                 return false;
+            }
+
         }
         #endregion
         #region Account 

@@ -11,6 +11,7 @@ namespace SmartChoiceApp.ViewModels
         #region Properties
         private Database.Database database { get; set; }
         public ICommand SaveCommand { get; set; }
+        public ICommand SavePassWordCommand { get; set; }
         public ICommand LogoutCommand { get; set; }
         public bool _isWaiting = false;
         public bool IsWaiting
@@ -24,6 +25,30 @@ namespace SmartChoiceApp.ViewModels
             get => _userInfo;
             set => SetProperty(ref _userInfo, value);
         }
+
+        public string _oldPass;
+        public string OldPass
+        {
+            get => _oldPass;
+            set => SetProperty(ref _oldPass, value);
+        }
+
+        public string _newPass;
+        public string NewPass
+        {
+            get => _newPass;
+            set => SetProperty(ref _newPass, value);
+        }
+
+        public string _confirmPass;
+        public string ConfirmPass
+        {
+            get => _confirmPass;
+            set => SetProperty(ref _confirmPass, value);
+        }
+
+
+
         INavigationService navigation;
         IPageDialogService dialog;
         #endregion
@@ -32,6 +57,7 @@ namespace SmartChoiceApp.ViewModels
         {
             database = new Database.Database();
             SaveCommand = new Command(SaveAction);
+            SavePassWordCommand = new Command(SavePassWordAction);
             LogoutCommand = new Command(LogoutAction);
             navigation = navigationService;
             dialog = pageDialogService;
@@ -45,8 +71,61 @@ namespace SmartChoiceApp.ViewModels
 
         private async void SaveAction()
         {
-            IsWaiting = true;
-            if(await database.UpdateUser(_userInfo))
+            var stringNumber = UserInfo.SDT.ToString();
+            if (string.IsNullOrEmpty(stringNumber) == true)
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Vui lòng nhập đầy đủ thông tin", "OK");
+                return;
+            }
+            else if (stringNumber.Contains("-") || stringNumber.Contains(","))
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Số điện thoại chứa ký tự không cho phép!", "OK");
+                return;
+            }
+            else
+            {
+                IsWaiting = true;
+                ShowNotification(await database.UpdateUser(_userInfo));
+            }
+        }
+
+        private async void SavePassWordAction()
+        {
+            if (string.IsNullOrEmpty(OldPass) == true || string.IsNullOrEmpty(NewPass) == true
+                || string.IsNullOrEmpty(ConfirmPass) == true)
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Vui lòng nhập đầy đủ thông tin", "OK");
+                return;
+            }
+            else if (OldPass != UserInfo.MatKhau)
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Mật khẩu không đúng", "OK");
+                return;
+            }
+            else if (NewPass != ConfirmPass)
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Xác nhận mật khẩu không đúng", "OK");
+                return;
+            }         
+            else
+            {
+                UserInfo.MatKhau = NewPass;
+                IsWaiting = true;
+                ShowNotification(await database.UpdateUser(_userInfo));
+            }
+               
+            }
+
+        private void LogoutAction()
+        {
+            App.mainUser = null;
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+        }
+
+        #region Function
+        private async void ShowNotification(bool b)
+        {
+            if (b)
             {
                 IsWaiting = false;
                 await dialog.DisplayAlertAsync("Thông báo", "Cập nhật thành công", "OK");
@@ -57,10 +136,6 @@ namespace SmartChoiceApp.ViewModels
                 await dialog.DisplayAlertAsync("Thông báo", "Lỗi cập nhật, thử lại!", "OK");
             }
         }
-        private void LogoutAction()
-        {
-            App.mainUser = null;
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
-        }
+        #endregion
     }
 }

@@ -36,6 +36,9 @@
             <Style TargetType="ActivityIndicator">
                 <Setter Property="Color" Value="#24bd64"/>
             </Style>
+            <Style TargetType="ListView">
+                <Setter Property="SeparatorColor" Value="#24bd64"/>
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>

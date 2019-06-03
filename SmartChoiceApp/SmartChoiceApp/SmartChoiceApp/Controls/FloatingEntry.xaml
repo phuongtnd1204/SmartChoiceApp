@@ -30,8 +30,7 @@
                                     FontSize="16"
                                     Margin="7,7,7,0"
                                     VerticalOptions="Center"
-                                    x:Name="MainEntry"
-/>
+                                    x:Name="MainEntry"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

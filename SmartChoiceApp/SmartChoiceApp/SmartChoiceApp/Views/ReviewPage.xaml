@@ -18,13 +18,14 @@
     <ContentPage.Content>
         <StackLayout Padding="30" Spacing="20">
             <StackLayout Orientation="Horizontal">
-                <Picker ItemsSource="{Binding starList}" Title="Chọn số sao" SelectedItem="{Binding StarNumber, Mode=OneWayToSource}" />
-                <controls:RatingControl Rating="{Binding StarNumber, Converter={StaticResource ToDouble}, Mode=OneWay}"
+                <Picker ItemsSource="{Binding starList}" Title="Chọn số sao" SelectedItem="{Binding Rating, Mode=OneWayToSource}" />
+                <controls:RatingControl Rating="{Binding Rating, Converter={StaticResource ToDouble}, Mode=OneWay}"
                                         HorizontalOptions="EndAndExpand"/>
             </StackLayout>
 
-            <controls:CustomEditor Placeholder="Thêm đánh giá của bạn"
+            <controls:CustomEditor Text="{Binding Comment}"
                     HeightRequest="70" Title="Đánh giá" />
+            <Button Text="Gửi" HorizontalOptions="FillAndExpand" Command="{Binding AddReviewCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

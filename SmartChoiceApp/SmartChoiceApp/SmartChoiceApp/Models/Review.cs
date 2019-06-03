@@ -2,7 +2,9 @@
 {
     public class Review
     {
-        public int MaBinhLuan { get; set; }
+        public string MaBinhLuan { get; set; }
+        public string MaNguoiDung { get; set; }
+        public string MaLoaiSanPham { get; set; }
         public string TenNguoiDung { get; set; }
         public double Rating { get; set; }
         public string NoiDung { get; set; }

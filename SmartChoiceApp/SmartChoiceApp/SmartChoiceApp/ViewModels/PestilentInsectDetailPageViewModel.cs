@@ -18,6 +18,20 @@ namespace SmartChoiceApp.ViewModels
         public int PestilentInsectID { get; set; }
 
         public Database.Database database;
+
+        private bool informationLayout;
+        public bool InformationLayout
+        {
+            get => informationLayout;
+            set => SetProperty(ref informationLayout, value);
+        }
+
+        private bool noInformationLayout;
+        public bool NoInformationLayout
+        {
+            get => noInformationLayout;
+            set => SetProperty(ref noInformationLayout, value);
+        }
         #endregion
 
         #region Constructor
@@ -37,9 +51,30 @@ namespace SmartChoiceApp.ViewModels
 
         private async void Init()
         {
+            hasProductIformation(true);
             await PopupNavigation.Instance.PushAsync(new ErrorPopup(), true);
             Insects = new ObservableCollection<PestilentInsect>(await database.GetPestilentInsect(PestilentInsectID));
+            if (Insects == null)
+            {
+                hasProductIformation(false);
+            }
             await PopupNavigation.Instance.PopAsync();
+        }
+        #endregion
+
+        #region Function
+        private void hasProductIformation(bool b)
+        {
+            if (b)
+            {
+                InformationLayout = true;
+                NoInformationLayout = false;
+            }
+            else
+            {
+                InformationLayout = false;
+                NoInformationLayout = true;
+            }
         }
         #endregion
     }

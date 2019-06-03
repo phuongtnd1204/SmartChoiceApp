@@ -24,9 +24,9 @@ namespace SmartChoiceApp
         {
             InitializeComponent();
 
-            //NavigationParameters parameter = new NavigationParameters();
-            //parameter.Add("ID", 1);
-            //await NavigationService.NavigateAsync("NavigationPage/ProductPage", parameter);
+            //navigationparameters parameter = new navigationparameters();
+            //parameter.add("id", 1);
+            //await navigationservice.navigateasync("navigationpage/productpage", parameter);
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
             mainUser = new User();
         }
@@ -44,6 +44,7 @@ namespace SmartChoiceApp
             containerRegistry.RegisterForNavigation<PestilentInsectDetailPage, PestilentInsectDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<ProductPage, ProductPageViewModel>();
             containerRegistry.RegisterForNavigation<ReviewPage, ReviewPageViewModel>();
+            containerRegistry.RegisterForNavigation<CommentPage, CommentPageViewModel>();
         }
     }
 }

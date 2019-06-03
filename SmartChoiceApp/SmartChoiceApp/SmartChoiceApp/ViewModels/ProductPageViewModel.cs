@@ -19,6 +19,7 @@ namespace SmartChoiceApp.ViewModels
         public ICommand ManufacturerDetailCommand { get; set; }
         public ICommand PestilentInsectCommand { get; set; }
         public ICommand ReviewCommand { get; set; }
+        public ICommand AddReviewCommand { get; set; }
         INavigationService navigation;
         private ObservableCollection<data> imageSources;
         public ObservableCollection<data> ImageSources
@@ -81,6 +82,20 @@ namespace SmartChoiceApp.ViewModels
             get => reviews;
             set => SetProperty(ref reviews, value);
         }
+
+        private bool informationLayout;
+        public bool InformationLayout
+        {
+            get => informationLayout;
+            set => SetProperty(ref informationLayout, value);
+        }
+
+        private bool noInformationLayout;
+        public bool NoInformationLayout
+        {
+            get => noInformationLayout;
+            set => SetProperty(ref noInformationLayout, value);
+        }
         #endregion
 
         #region Constructor
@@ -89,6 +104,7 @@ namespace SmartChoiceApp.ViewModels
             ManufacturerDetailCommand = new Command(ManufacturerDetailAction);
             PestilentInsectCommand = new Command(PestilentInsectAction);
             ReviewCommand = new Command(ReviewAction);
+            AddReviewCommand = new Command(AddReviewAction);
             navigation = navigationService;
             ImageSources = new ObservableCollection<data>();
             Product = new ProductDetail();
@@ -98,10 +114,18 @@ namespace SmartChoiceApp.ViewModels
 
         private async void Init()
         {
+            hasProductIformation(false);
             await PopupNavigation.Instance.PushAsync(new ErrorPopup(), true);
             Product = await database.GetProductDetail(ProductID);
-            ProductInfo = Product.infor;
-            Reviews = new ObservableCollection<Review>(Product.comments);
+            if(Product != null)
+            {
+                hasProductIformation(true);
+                ProductInfo = Product.infor;
+            }
+            else
+            {
+                hasProductIformation(false);
+            }
             await PopupNavigation.Instance.PopAsync();
         }
         #endregion
@@ -123,7 +147,20 @@ namespace SmartChoiceApp.ViewModels
 
         private async void ReviewAction()
         {
-            await navigation.NavigateAsync("ReviewPage");
+            //NavigationParameters parameter = new NavigationParameters();
+            //parameter.Add("MaLoaiSanPham", ProductInfo.MaLoaiSanPham);
+            //await navigation.NavigateAsync(new System.Uri("ReviewPage", UriKind.Relative), parameter);
+
+            NavigationParameters parameter = new NavigationParameters();
+            parameter.Add("MaLoaiSanPham", ProductInfo.MaLoaiSanPham);
+            await navigation.NavigateAsync(new System.Uri("CommentPage", UriKind.Relative), parameter);
+        }
+
+        private async void AddReviewAction()
+        {
+            NavigationParameters parameter = new NavigationParameters();
+            parameter.Add("MaLoaiSanPham", ProductInfo.MaLoaiSanPham);
+            await navigation.NavigateAsync(new System.Uri("ReviewPage", UriKind.Relative), parameter);
         }
 
         public override void OnNavigatingTo(INavigationParameters parameters)
@@ -135,6 +172,19 @@ namespace SmartChoiceApp.ViewModels
         #endregion
 
         #region Function
+        private void hasProductIformation(bool b)
+        {
+            if(b)
+            {
+                InformationLayout = true;
+                NoInformationLayout = false;
+            }
+            else
+            {
+                InformationLayout = false;
+                NoInformationLayout = true;
+            }
+        }
 
         #endregion
     }
