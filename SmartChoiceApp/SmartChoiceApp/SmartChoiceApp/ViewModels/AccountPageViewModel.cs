@@ -4,6 +4,11 @@ using SmartChoiceApp.Views;
 using System.Windows.Input;
 using Xamarin.Forms;
 
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+
 namespace SmartChoiceApp.ViewModels
 {
     public class AccountPageViewModel : ViewModelBase
@@ -13,34 +18,49 @@ namespace SmartChoiceApp.ViewModels
         public ICommand SaveCommand { get; set; }
         public ICommand SavePassWordCommand { get; set; }
         public ICommand LogoutCommand { get; set; }
-        public bool _isWaiting = false;
+        public ICommand UpdateAvatarCommand { get; set; }
+        private bool _isWaiting = false;
         public bool IsWaiting
         {
             get => _isWaiting;
             set => SetProperty(ref _isWaiting, value);
         }
-        public User _userInfo;
+        private MediaFile imageFile;
+        public MediaFile ImageFile
+        {
+            get => imageFile;
+            set => SetProperty(ref imageFile, value);
+        }
+
+        private User _userInfo;
         public User UserInfo
         {
             get => _userInfo;
             set => SetProperty(ref _userInfo, value);
         }
 
-        public string _oldPass;
+        private string _oldPass;
         public string OldPass
         {
             get => _oldPass;
             set => SetProperty(ref _oldPass, value);
         }
 
-        public string _newPass;
+        private string _anhDaiDien;
+        public string AnhDaiDien
+        {
+            get => _anhDaiDien;
+            set => SetProperty(ref _anhDaiDien, value);
+        }
+
+        private string _newPass;
         public string NewPass
         {
             get => _newPass;
             set => SetProperty(ref _newPass, value);
         }
 
-        public string _confirmPass;
+        private string _confirmPass;
         public string ConfirmPass
         {
             get => _confirmPass;
@@ -59,6 +79,7 @@ namespace SmartChoiceApp.ViewModels
             SaveCommand = new Command(SaveAction);
             SavePassWordCommand = new Command(SavePassWordAction);
             LogoutCommand = new Command(LogoutAction);
+            UpdateAvatarCommand = new Command(UpdateAvatarAction);
             navigation = navigationService;
             dialog = pageDialogService;
             ReceiveData();
@@ -67,6 +88,7 @@ namespace SmartChoiceApp.ViewModels
         private void ReceiveData()
         {
             _userInfo = App.mainUser;
+            AnhDaiDien = _userInfo.AnhDaiDien;
         }
 
         private async void SaveAction()
@@ -115,6 +137,44 @@ namespace SmartChoiceApp.ViewModels
             }
                
             }
+
+        private async void UpdateAvatarAction()
+        {
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Thao tác không được hỗ trợ", "OK");
+                return;
+            }
+
+            //var options = new StoreCameraMediaOptions();
+            //options.SaveToAlbum = true;
+            //options.PhotoSize = PhotoSize.Small;
+
+            var file = await CrossMedia.Current.PickPhotoAsync();
+
+            if (file == null)
+                return;
+            imageFile = file;
+            //image.Source = ImageSource.FromStream(() =>
+            //{
+            //    var stream = file.GetStream();
+            //    return stream;
+            //});
+            if(await database.UpdateAvatar(imageFile, App.mainUser.MaNguoiDung))
+            {
+                App.mainUser = await database.GetUser(App.mainUser.MaNguoiDung);
+                ReceiveData();
+                await dialog.DisplayAlertAsync("Thông báo", "Cập nhật thành công", "OK");
+            }
+            else
+            {
+                await dialog.DisplayAlertAsync("Thông báo", "Cập nhật không thành công", "OK");
+            }
+
+
+        }
 
         private void LogoutAction()
         {

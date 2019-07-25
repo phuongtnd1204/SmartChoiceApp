@@ -19,10 +19,13 @@
         <StackLayout Padding="20" >
             <ScrollView>
                 <StackLayout Spacing="20">
-                    <custom1:CircleImage Source="{Binding UserInfo.AnhDaiDien}"                                       
+                    <custom1:CircleImage Source="{Binding AnhDaiDien}"                                       
                                              VerticalOptions="Start"
                                              HorizontalOptions="CenterAndExpand"
                                              HeightRequest="100" WidthRequest="100">
+                        <custom1:CircleImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UpdateAvatarCommand}"/>
+                        </custom1:CircleImage.GestureRecognizers>
                     </custom1:CircleImage>
                     <Label Text="{Binding UserInfo.TenNguoiDung}" HorizontalOptions="CenterAndExpand"/>
                     <Grid RowSpacing="10" ColumnSpacing="5">
@@ -44,9 +47,9 @@
                         </Label>
                     </Grid>
                     <StackLayout x:Name="PassWordLayout" IsVisible="False">
-                        <controls:FloatingEntry  Title="Mật khẩu cũ" Text="{Binding OldPass}"/>
-                        <controls:FloatingEntry  Title="Mật khẩu mới" Text="{Binding NewPass}"/>
-                        <controls:FloatingEntry Title="Nhập lại mật khẩu mới" Text="{Binding ConfirmPass}"/>
+                        <controls:FloatingEntry  Title="Mật khẩu cũ" Text="{Binding OldPass}" IsPassword="True"/>
+                        <controls:FloatingEntry  Title="Mật khẩu mới" Text="{Binding NewPass}" IsPassword="True"/>
+                        <controls:FloatingEntry Title="Nhập lại mật khẩu mới" Text="{Binding ConfirmPass}" IsPassword="True"/>
                     </StackLayout>
                     <StackLayout HeightRequest="30">
                         <ActivityIndicator IsRunning="{Binding IsWaiting}" IsVisible="{Binding IsWaiting}"/>

@@ -48,6 +48,7 @@
                                         </StackLayout>
                                     </StackLayout>
                                     <Label Margin="15,0,0,0" Text="{Binding NoiDung}"/>
+                                    <Label Margin="15,0,0,0" Text="{Binding NgayBinhLuan}"/>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

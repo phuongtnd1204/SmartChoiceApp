@@ -40,13 +40,15 @@
                         <Label Text="Số lượt quét:" HorizontalOptions="EndAndExpand"/>
                         <Label Text="{Binding ProductInfo.SoLanQuet}" HorizontalOptions="End"/>
                     </StackLayout>
-                    <controls1:RatingControl Rating="9" HorizontalOptions="EndAndExpand"/>
+                    <controls1:RatingControl Rating="{Binding ProductInfo.DanhGia, Converter={StaticResource ToDouble}}" HorizontalOptions="EndAndExpand"/>
                     <Grid RowSpacing="15" ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -66,7 +68,9 @@
                         <Label Text="Hạn sử dụng:" Grid.Column="0" Grid.Row="6" Style="{StaticResource LeftLabel}"/>
                         <Label Text="Phân bón:" Grid.Column="0" Grid.Row="7" Style="{StaticResource LeftLabel}"/>
                         <Label Text="Sâu bệnh:" Grid.Column="0" Grid.Row="8" Style="{StaticResource LeftLabel}"/>
-
+                        <Label Text="Số lượng cây trồng:" Grid.Column="0" Grid.Row="9" Style="{StaticResource LeftLabel}"/>
+                        <Label Text="Nhà cung cấp giống:" Grid.Column="0" Grid.Row="10" Style="{StaticResource LeftLabel}"/>
+                        
                         <StackLayout  Grid.Column="1" Grid.Row="0">
                             <Label Text="{Binding ProductInfo.TenNSX}" Style="{StaticResource RightLabel}"/>
                             <Label Text="Xem thêm" VerticalOptions="CenterAndExpand" 
@@ -89,6 +93,8 @@
                                 <TapGestureRecognizer Command="{Binding PestilentInsectCommand}"/>
                             </Label.GestureRecognizers>
                         </Label>
+                        <Label Text="{Binding ProductInfo.SoCayTrong}" Grid.Column="1" Grid.Row="9" Style="{StaticResource RightLabel}"/>
+                        <Label Text="{Binding ProductInfo.TenNhaCungCap}" Grid.Column="1" Grid.Row="10" Style="{StaticResource RightLabel}"/>
                     </Grid>
                     <Button Text="Xem đánh giá" Margin="0,15,0,0" Command="{Binding ReviewCommand}"/>
                     <Button Text="Thêm đánh giá" Margin="0,15,0,10" Command="{Binding AddReviewCommand}"/>

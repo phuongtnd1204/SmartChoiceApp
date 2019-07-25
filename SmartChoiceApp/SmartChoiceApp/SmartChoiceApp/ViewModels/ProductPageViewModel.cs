@@ -69,6 +69,20 @@ namespace SmartChoiceApp.ViewModels
             set => SetProperty(ref manufacturerName, value);
         }
 
+        //private string ngayThuHoach;
+        //public string NgayThuHoach
+        //{
+        //    get => ngayThuHoach;
+        //    set => SetProperty(ref ngayThuHoach, value);
+        //}
+
+        //private string ngayTrong;
+        //public string NgayTrong
+        //{
+        //    get => ngayTrong;
+        //    set => SetProperty(ref ngayTrong, value);
+        //}
+
         private ProductInfo productInfo;
         public ProductInfo ProductInfo
         {
@@ -121,6 +135,8 @@ namespace SmartChoiceApp.ViewModels
             {
                 hasProductIformation(true);
                 ProductInfo = Product.infor;
+                //NgayThuHoach = ProductInfo.NgayThuHoach.ToShortDateString();
+                //NgayTrong = ProductInfo.NgayTrong.ToShortDateString();
             }
             else
             {
@@ -134,14 +150,14 @@ namespace SmartChoiceApp.ViewModels
         private async void ManufacturerDetailAction()
         {
             NavigationParameters parameter = new NavigationParameters();
-            parameter.Add("ID", 1);
+            parameter.Add("ID", ProductInfo.MaNSX);
             await navigation.NavigateAsync(new System.Uri("ManufacturerDetailPage",UriKind.Relative), parameter);
         }
 
         private async void PestilentInsectAction()
         {
             NavigationParameters parameter = new NavigationParameters();
-            parameter.Add("ID", 2);
+            parameter.Add("ID", ProductInfo.MaSanPham);
             await navigation.NavigateAsync("PestilentInsectDetailPage", parameter);
         }
 
@@ -152,7 +168,7 @@ namespace SmartChoiceApp.ViewModels
             //await navigation.NavigateAsync(new System.Uri("ReviewPage", UriKind.Relative), parameter);
 
             NavigationParameters parameter = new NavigationParameters();
-            parameter.Add("MaLoaiSanPham", ProductInfo.MaLoaiSanPham);
+            parameter.Add("MaLoaiSanPham", ProductInfo.MaSanPham);
             await navigation.NavigateAsync(new System.Uri("CommentPage", UriKind.Relative), parameter);
         }
 

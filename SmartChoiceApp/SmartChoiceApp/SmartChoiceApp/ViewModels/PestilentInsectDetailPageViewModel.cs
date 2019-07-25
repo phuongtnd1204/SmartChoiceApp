@@ -53,11 +53,20 @@ namespace SmartChoiceApp.ViewModels
         {
             hasProductIformation(true);
             await PopupNavigation.Instance.PushAsync(new ErrorPopup(), true);
-            Insects = new ObservableCollection<PestilentInsect>(await database.GetPestilentInsect(PestilentInsectID));
-            if (Insects == null)
+            var x = await database.GetPestilentInsect(PestilentInsectID);
+            if(x == null)
             {
                 hasProductIformation(false);
             }
+            else
+            {
+                Insects = new ObservableCollection<PestilentInsect>(x);
+                if (Insects.Count == 0)
+                {
+                    hasProductIformation(false);
+                }
+            }
+           
             await PopupNavigation.Instance.PopAsync();
         }
         #endregion

@@ -74,10 +74,11 @@ namespace SmartChoiceApp.ViewModels
             hasProductIformation(false);
             await PopupNavigation.Instance.PushAsync(new ErrorPopup(), true);
             Product = await database.GetProductDetail(ProductID);
-            if (Product != null)
+            if (Product.comments.Count > 0)
             {
                 hasProductIformation(true);
                 Reviews = new ObservableCollection<Review>(Product.comments);
+                //(string)Reviews[0].NgayBinhLuan = Reviews[0].NgayBinhLuan.ToLongTimeString();
             }
             else
             {

@@ -7,6 +7,7 @@ namespace SmartChoiceApp.Models
     public class ProductInfo
     {
         public int MaSanPham { get; set; }
+        public int MaNSX { get; set; }
         public int MaLoaiSanPham { get; set; }
         public string TenGiong { get; set; }
         public string TenNSX { get; set; }
@@ -18,11 +19,14 @@ namespace SmartChoiceApp.Models
         public int ThoiGianTangTruong { get; set; }
         public int SoLanQuet { get; set; }
         //public int NgayTrong { get; set; }
-        public DateTime NgayTrong { get; set; }
+        public string NgayTrong { get; set; }
         public string DiaChiTrong { get; set; }
-        public DateTime NgayThuHoach { get; set; }
+        public string NgayThuHoach { get; set; }
         public int HanSuDung { get; set; }
         public string PhanBon { get; set; }
         public string HinhAnhSanPham { get; set; }
+        public int SoCayTrong { get; set; }
+        public string TenNhaCungCap { get; set; }
+        public double DanhGia { get; set; }
     }
 }

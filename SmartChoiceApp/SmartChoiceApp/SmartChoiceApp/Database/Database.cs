@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SmartChoiceApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 namespace SmartChoiceApp.Database
 {
@@ -35,9 +39,12 @@ namespace SmartChoiceApp.Database
         {
             return true;
         }
-        public void GetUser()
+        public async Task<User> GetUser(string ID)
         {
-
+            URL = UrlHome + "users/" + ID.ToString();
+            var httpResponse = await Client.GetAsync(URL);
+            var response = await httpResponse.Content.ReadAsStringAsync();
+            return JObject.Parse(response)["Result"].ToObject<User>();
         }
         #endregion
 
@@ -100,7 +107,8 @@ namespace SmartChoiceApp.Database
                 MaNguoiDung = userReview.MaNguoiDung,
                 MaLoaiSanPham = userReview.MaLoaiSanPham,
                 Rating = userReview.Rating.ToString(),
-                NoiDung = userReview.NoiDung
+                NoiDung = userReview.NoiDung,
+                NgayBinhLuan = DateTime.Now.ToString("yyyy/MM/dd"),
             };
 
             var json = JsonConvert.SerializeObject(obj);
@@ -207,6 +215,32 @@ namespace SmartChoiceApp.Database
                 {
                     return false;
                 }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateAvatar(MediaFile file, string userID)
+        {
+            URL = UrlHome + "users/updateavatar";
+            StreamContent scontent = new StreamContent(file.GetStream());
+            scontent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                FileName = "user" + userID,
+                Name = "image"
+            };
+            scontent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+
+            var multi = new MultipartFormDataContent();
+            multi.Add(scontent);
+            var httpResponse = await Client.PostAsync(URL, multi);
+            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            if ((string)JObject.Parse(responseString)["message"] == "success")
+            {
+
+                return true;
             }
             else
             {

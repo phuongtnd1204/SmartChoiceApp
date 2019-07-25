@@ -3,6 +3,7 @@ using Prism.Ioc;
 using SmartChoiceApp.ViewModels;
 using SmartChoiceApp.Views;
 using Xamarin.Forms;
+using Plugin.Media;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -27,6 +28,8 @@ namespace SmartChoiceApp
             //navigationparameters parameter = new navigationparameters();
             //parameter.add("id", 1);
             //await navigationservice.navigateasync("navigationpage/productpage", parameter);
+
+            await CrossMedia.Current.Initialize();
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
             mainUser = new User();
         }

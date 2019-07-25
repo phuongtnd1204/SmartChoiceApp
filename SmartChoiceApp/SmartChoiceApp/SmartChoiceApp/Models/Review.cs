@@ -1,4 +1,6 @@
-﻿namespace SmartChoiceApp.Models
+﻿using System;
+
+namespace SmartChoiceApp.Models
 {
     public class Review
     {
@@ -9,5 +11,6 @@
         public double Rating { get; set; }
         public string NoiDung { get; set; }
         public string AnhDaiDien { get; set; }
+        public string NgayBinhLuan { get; set; }
     }
 }
